@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - "12"
+services:
+  - mongodb
+cache: yarn
+branches:
+  only:
+    - main
+env:
+  global:
+    - PORT=3006
+    - MONGODB_URL="mongodb://127.0.0.1:27017/itProduct"
+    - JWT_SECRET=thisisasamplesecret
+    - JWT_ACCESS_EXPIRATION_MINUTES=1000
+    - JWT_REFRESH_EXPIRATION_DAYS=30
+script:
+  - yarn lint
+  - yarn test
+after_success: yarn coverage:coveralls
